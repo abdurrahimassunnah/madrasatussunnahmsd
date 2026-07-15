@@ -1,0 +1,110 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <script>
+      window.addEventListener('error', function(e) {
+        // Ignore benign WebSocket/Vite errors in dev environment
+        if (e.message && (e.message.indexOf('WebSocket') !== -1 || e.message.indexOf('websocket') !== -1 || e.message.indexOf('vite') !== -1)) {
+          return;
+        }
+        var errorDiv = document.createElement('div');
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.top = '0';
+        errorDiv.style.left = '0';
+        errorDiv.style.width = '100vw';
+        errorDiv.style.height = '100vh';
+        errorDiv.style.backgroundColor = '#fdf2f2';
+        errorDiv.style.color = '#9b1c1c';
+        errorDiv.style.padding = '30px';
+        errorDiv.style.zIndex = '9999999';
+        errorDiv.style.overflow = 'auto';
+        errorDiv.style.fontFamily = 'monospace';
+        errorDiv.style.fontSize = '14px';
+        errorDiv.style.lineHeight = '1.5';
+        errorDiv.innerHTML = '<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">Browser Runtime Error Captured</h1>' +
+          '<div style="background-color: white; border: 1px solid #f5c2c2; padding: 20px; border-radius: 8px; margin-bottom: 15px; font-weight: bold;">' + e.message + '</div>' +
+          '<div style="background-color: white; border: 1px solid #f5c2c2; padding: 20px; border-radius: 8px;"><strong>File:</strong> ' + e.filename + ' | <strong>Line:</strong> ' + e.lineno + ' | <strong>Col:</strong> ' + e.colno + '</div>' +
+          (e.error && e.error.stack ? '<pre style="margin-top: 15px; padding: 15px; background: #2d3748; color: #a0aec0; border-radius: 8px; overflow-x: auto;">' + e.error.stack + '</pre>' : '');
+        document.body.appendChild(errorDiv);
+      });
+      window.addEventListener('unhandledrejection', function(e) {
+        var reasonStr = String(e.reason);
+        // Ignore benign WebSocket/Vite errors in dev environment
+        if (reasonStr && (reasonStr.indexOf('WebSocket') !== -1 || reasonStr.indexOf('websocket') !== -1 || reasonStr.indexOf('vite') !== -1)) {
+          return;
+        }
+        var errorDiv = document.createElement('div');
+        errorDiv.style.position = 'fixed';
+        errorDiv.style.top = '0';
+        errorDiv.style.left = '0';
+        errorDiv.style.width = '100vw';
+        errorDiv.style.height = '100vh';
+        errorDiv.style.backgroundColor = '#fdf2f2';
+        errorDiv.style.color = '#9b1c1c';
+        errorDiv.style.padding = '30px';
+        errorDiv.style.zIndex = '9999999';
+        errorDiv.style.overflow = 'auto';
+        errorDiv.style.fontFamily = 'monospace';
+        errorDiv.style.fontSize = '14px';
+        errorDiv.style.lineHeight = '1.5';
+        errorDiv.innerHTML = '<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 15px;">Unhandled Promise Rejection Captured</h1>' +
+          '<div style="background-color: white; border: 1px solid #f5c2c2; padding: 20px; border-radius: 8px; margin-bottom: 15px; font-weight: bold;">' + e.reason + '</div>' +
+          (e.reason && e.reason.stack ? '<pre style="margin-top: 15px; padding: 15px; background: #2d3748; color: #a0aec0; border-radius: 8px; overflow-x: auto;">' + e.reason.stack + '</pre>' : '');
+        document.body.appendChild(errorDiv);
+      });
+    </script>
+    <link rel="icon" type="image/svg+xml" href="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>মাদরাসাতুস সুন্নাহ এআই</title>
+    <link href="https://fonts.maateen.me/solaiman-lipi/font.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['SolaimanLipi', 'Inter', 'Noto Sans Bengali', 'sans-serif'],
+              serif: ['SolaimanLipi', 'serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      body {
+        font-family: 'SolaimanLipi', 'Inter', 'Noto Sans Bengali', sans-serif;
+        background-color: #fcfdfd;
+        overflow-x: hidden;
+      }
+      /* Custom scrollbar for better aesthetics */
+      ::-webkit-scrollbar { width: 6px; }
+      ::-webkit-scrollbar-track { background: #f1f5f9; }
+      ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+      ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.30.0",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.555.0",
+    "react-markdown": "https://aistudiocdn.com/react-markdown@^10.1.0",
+    "remark-gfm": "https://esm.sh/remark-gfm@4?bundle",
+    "rehype-raw": "https://esm.sh/rehype-raw@7?bundle"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

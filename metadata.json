@@ -1,0 +1,8 @@
+{
+  "name": "মাদরাসাতুস সুন্নাহ এআই অ্যাসিস্ট্যান্ট  update",
+  "description": "শিক্ষকদের জন্য একটি এআই-চালিত টুল যা পিডিএফ বা পাঠ্য বিষয়বস্তু থেকে পাঠ পরিকল্পনা এবং প্রশ্নপত্র তৈরি করতে পারে।",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
