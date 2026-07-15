@@ -21,26 +21,17 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, history, onSelectHis
     const savedKey = localStorage.getItem('GEMINI_API_KEY');
     if (savedKey) {
       const trimmed = savedKey.trim();
-      if (trimmed.startsWith('AQ.')) {
-        // Auto-heal: delete the invalid key from localStorage
-        localStorage.removeItem('GEMINI_API_KEY');
-        window.dispatchEvent(new Event('storage'));
-        setApiKey('');
-        setIsSaved(false);
-        setValidationError("জেমিনি এপিআই কী 'AQ.' দিয়ে শুরু হতে পারে না। অনুগ্রহ করে 'AIzaSy' দিয়ে শুরু হওয়া সঠিক কী দিন।");
-      } else {
-        setApiKey(trimmed);
-        setIsSaved(true);
-        setValidationError('');
-      }
+      setApiKey(trimmed);
+      setIsSaved(true);
+      setValidationError('');
     }
   }, []);
 
   const handleSaveKey = () => {
     const trimmed = apiKey.trim();
     if (trimmed) {
-      if (trimmed.startsWith('AQ.')) {
-        setValidationError("জেমিনি এপিআই কী 'AQ.' দিয়ে শুরু হতে পারে না। অনুগ্রহ করে 'AIzaSy' দিয়ে শুরু হওয়া সঠিক কী দিন।");
+      if (!trimmed.startsWith('AIzaSy') && !trimmed.startsWith('AQ.')) {
+        setValidationError("জেমিনি এপিআই কী সাধারণত 'AIzaSy' অথবা 'AQ.' দিয়ে শুরু হতে হবে।");
         return;
       }
       localStorage.setItem('GEMINI_API_KEY', trimmed);

@@ -66,19 +66,13 @@ const SYSTEM_INSTRUCTION_BASE = `
 const getClientApiKey = (): string | null => {
   const savedKey = localStorage.getItem("GEMINI_API_KEY");
   if (savedKey && savedKey.trim()) {
-    const trimmed = savedKey.trim();
-    if (!trimmed.startsWith("AQ.")) {
-      return trimmed;
-    }
+    return savedKey.trim();
   }
   
   // Fallback to compiled environment variable from Vite build
   const envKey = process.env.GEMINI_API_KEY || process.env.API_KEY;
   if (envKey && envKey.trim()) {
-    const trimmedEnv = envKey.trim();
-    if (!trimmedEnv.startsWith("AQ.")) {
-      return trimmedEnv;
-    }
+    return envKey.trim();
   }
   
   return null;

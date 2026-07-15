@@ -79,19 +79,8 @@ async function startServer() {
     if (req) {
       const clientKey = req.headers['x-gemini-api-key'] || req.headers['x-api-key'];
       if (clientKey && typeof clientKey === 'string' && clientKey.trim()) {
-        const trimmed = clientKey.trim();
-        // Ignore the client key if it's an unsupported 'AQ.' key, and use server default instead
-        if (trimmed.startsWith('AQ.')) {
-          console.warn("Ignoring client-supplied 'AQ.' key. Falling back to server's standard GEMINI_API_KEY.");
-        } else {
-          apiKey = trimmed;
-        }
+        apiKey = clientKey.trim();
       }
-    }
-
-    // Double-check if the final resolved key is an AQ. key (which we know is unsupported)
-    if (apiKey && apiKey.trim().startsWith('AQ.')) {
-      throw new Error("The API key starts with 'AQ.' which is not supported by standard Google AI Studio endpoints. Please configure a valid standard Gemini API key (starting with 'AIzaSy').");
     }
 
     if (!apiKey) {
