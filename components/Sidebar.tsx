@@ -152,7 +152,7 @@ const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, history, onSelectHis
                   setApiKey(e.target.value);
                   setIsSaved(false);
                 }}
-                placeholder="AIzaSy..."
+                placeholder="AIzaSy... অথবা AQ..."
                 className="flex-1 px-2.5 py-1.5 text-[11px] bg-white border border-gray-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-emerald-500 font-mono shadow-inner text-gray-700"
               />
               {isSaved ? (

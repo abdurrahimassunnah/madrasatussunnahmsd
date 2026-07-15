@@ -243,7 +243,7 @@ const App: React.FC = () => {
                             <div className="flex flex-col sm:flex-row gap-2">
                               <input
                                 type="text"
-                                placeholder="এখানে আপনার AIzaSy- দিয়ে শুরু জেমিনি এপিআই কী দিন"
+                                placeholder="এখানে আপনার জেমিনি এপিআই কী (যেমন: AIzaSy... বা AQ...) দিন"
                                 id="error-api-key-input"
                                 className="flex-1 px-4 py-2.5 text-sm bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 font-mono shadow-inner"
                               />
