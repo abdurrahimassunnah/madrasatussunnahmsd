@@ -506,9 +506,11 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
 
   const handlePrintQuiz = () => {
     const isPlanEng = isEnglishText(editableContent);
-    const isQuizEng = quizResult?.questions.some(q => /[a-zA-Z]/.test(q.question)) || false;
-    const maxScore = isQuizEng ? 30 : (quizResult?.questions.length || 0) * 2;
+    const numQ = quizResult?.questions.length || 0;
+    const maxScore = numQ * 2;
     const displayMaxScore = isPlanEng ? String(maxScore) : toBengaliNumber(maxScore);
+    const timeMins = numQ <= 10 ? 15 : numQ <= 20 ? 30 : numQ <= 30 ? 45 : 60;
+    const displayTime = isPlanEng ? `${timeMins} Minutes` : `${toBengaliNumber(timeMins)} মিনিট`;
 
     // Create an iframe element dynamically to bypass window.open popup blockers inside iframe sandbox environments
     const iframe = document.createElement('iframe');
@@ -682,7 +684,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
           <div class="meta-info">
             <div>${isPlanEng ? 'Class/Subject:' : 'শ্রেণি/বিষয়:'} ${quizClassSubject}</div>
             <div style="text-align: center;">${isPlanEng ? 'Full Marks:' : 'পূর্ণমান:'} ${displayMaxScore}</div>
-            <div style="text-align: right;">${isPlanEng ? 'Time:' : 'সময়:'} ${isPlanEng ? '20 Minutes' : '২০ মিনিট'}</div>
+            <div style="text-align: right;">${isPlanEng ? 'Time:' : 'সময়:'} ${displayTime}</div>
           </div>
         </div>
         <div style="margin-top: 30px;">
@@ -754,13 +756,15 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
   const handleCopyQuiz = () => {
     if (!quizResult) return;
     const isPlanEng = isEnglishText(editableContent);
-    const isQuizEng = quizResult.questions.some(q => /[a-zA-Z]/.test(q.question));
-    const maxScore = isQuizEng ? 30 : quizResult.questions.length * 2;
+    const numQ = quizResult.questions.length;
+    const maxScore = numQ * 2;
     const displayMaxScore = isPlanEng ? String(maxScore) : toBengaliNumber(maxScore);
+    const timeMins = numQ <= 10 ? 15 : numQ <= 20 ? 30 : numQ <= 30 ? 45 : 60;
+    const displayTime = isPlanEng ? `${timeMins} Minutes` : `${toBengaliNumber(timeMins)} মিনিট`;
 
     let text = `📋 ${quizResult.quizTitle}\n`;
     text += `${isPlanEng ? 'Class/Subject:' : 'শ্রেণি/বিষয়:'} ${quizClassSubject}\n`;
-    text += `${isPlanEng ? 'Full Marks:' : 'পূর্ণমান:'} ${displayMaxScore} | ${isPlanEng ? 'Time: 20 Minutes' : 'সময়: ২০ মিনিট'}\n`;
+    text += `${isPlanEng ? 'Full Marks:' : 'পূর্ণমান:'} ${displayMaxScore} | ${isPlanEng ? 'Time:' : 'সময়:'} ${displayTime}\n`;
     text += `-------------------------------------------\n\n`;
     
     const grouped = getGroupedQuestions();
@@ -1486,13 +1490,13 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                   {/* Question Count Selection */}
                   <div className="space-y-2 mb-4">
                     <label className="text-xs font-black text-slate-500 uppercase">প্রশ্নের সংখ্যা</label>
-                    <div className="grid grid-cols-3 gap-2">
-                      {[5, 10, 15].map((count) => (
+                    <div className="grid grid-cols-3 sm:grid-cols-4 gap-2">
+                      {[5, 10, 15, 20, 25, 30, 40, 50].map((count) => (
                         <button
                           key={count}
                           type="button"
                           onClick={() => setQuizCount(count)}
-                          className={`py-2 px-3 rounded-xl text-sm font-black transition-all ${
+                          className={`py-2 px-2.5 rounded-xl text-xs sm:text-sm font-black transition-all ${
                             quizCount === count
                               ? 'bg-emerald-600 text-white shadow-md'
                               : 'bg-slate-50 text-slate-600 border border-slate-200 hover:bg-slate-100'
@@ -1764,15 +1768,21 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                             <span className="text-slate-800">
                               {(() => {
                                 const isPlanEng = isEnglishText(editableContent);
-                                const isQuizEng = quizResult.questions.some(q => /[a-zA-Z]/.test(q.question));
-                                const maxScore = isQuizEng ? 30 : quizResult.questions.length * 2;
+                                const maxScore = (quizResult.questions.length || 0) * 2;
                                 return isPlanEng ? String(maxScore) : toBengaliNumber(maxScore);
                               })()}
                             </span>
                           </div>
                           <div className="text-right flex items-center justify-end gap-1 col-span-2 md:col-span-1">
                             <span className="text-slate-400">{isEnglishText(editableContent) ? 'Time:' : 'সময়:'}</span> 
-                            <span className="text-slate-800">{isEnglishText(editableContent) ? '20 Minutes' : '২০ মিনিট'}</span>
+                            <span className="text-slate-800">
+                              {(() => {
+                                const isPlanEng = isEnglishText(editableContent);
+                                const numQ = quizResult.questions.length;
+                                const timeMins = numQ <= 10 ? 15 : numQ <= 20 ? 30 : numQ <= 30 ? 45 : 60;
+                                return isPlanEng ? `${timeMins} Minutes` : `${toBengaliNumber(timeMins)} মিনিট`;
+                              })()}
+                            </span>
                           </div>
                         </div>
                       </div>

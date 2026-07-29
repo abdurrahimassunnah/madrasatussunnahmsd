@@ -684,22 +684,30 @@ const LessonForm: React.FC<LessonFormProps> = ({ onSubmit, isLoading, progress, 
 
           {/* Duration Selector */}
           <div className="space-y-3">
-            <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.15em] ml-1 flex items-center">
-              <Clock className="w-3.5 h-3.5 mr-2 text-emerald-500" /> রুটিনের ব্যাপ্তি (দিন)
+            <label className="text-[11px] font-black text-slate-400 uppercase tracking-[0.15em] ml-1 flex items-center justify-between">
+              <span className="flex items-center">
+                <Clock className="w-3.5 h-3.5 mr-2 text-emerald-500" /> রুটিনের ব্যাপ্তি (দিন)
+              </span>
+              <span className="text-[10px] text-emerald-600 font-bold bg-emerald-50 px-2 py-0.5 rounded-md">
+                {duration === 90 ? '৯০ দিন (৩ মাস)' : duration === 60 ? '৬০ দিন (২ মাস)' : duration === 30 ? '৩০ দিন (১ মাস)' : `${duration} দিন`}
+              </span>
             </label>
-            <div className="grid grid-cols-4 gap-3">
-              {[1, 2, 3, 5].map((d) => (
+            <div className="grid grid-cols-5 sm:grid-cols-10 gap-1.5">
+              {[1, 2, 3, 5, 10, 15, 20, 30, 60, 90].map((d) => (
                 <button
                   key={d}
                   type="button"
                   onClick={() => setDuration(d)}
-                  className={`py-3 rounded-2xl text-sm font-black transition-all border-2 ${
+                  className={`py-2.5 rounded-xl text-xs font-black transition-all border-2 flex flex-col items-center justify-center ${
                     duration === d 
-                      ? 'bg-emerald-600 border-emerald-600 text-white shadow-lg shadow-emerald-200' 
-                      : 'bg-white border-slate-100 text-slate-500 hover:border-emerald-200'
+                      ? 'bg-emerald-600 border-emerald-600 text-white shadow-md shadow-emerald-200' 
+                      : 'bg-white border-slate-100 text-slate-600 hover:border-emerald-200 hover:bg-emerald-50/30'
                   }`}
                 >
-                  {d} দিন
+                  <span>{d} দিন</span>
+                  {d === 30 && <span className="text-[7px] opacity-80 font-normal">১ মাস</span>}
+                  {d === 60 && <span className="text-[7px] opacity-80 font-normal">২ মাস</span>}
+                  {d === 90 && <span className="text-[7px] opacity-80 font-normal">৩ মাস</span>}
                 </button>
               ))}
             </div>

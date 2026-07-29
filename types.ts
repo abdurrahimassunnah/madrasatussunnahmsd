@@ -13,7 +13,7 @@ export interface LessonPlanRequest {
   fileData: string | null; // Base64 string
   mimeType: string;
   extractedText?: string;
-  duration: number; // 1, 2, 3, 5 days
+  duration: number; // e.g. 1, 2, 3, 5, 10, 15, 20, 30, 60, 90 days
   startDate: string; // YYYY-MM-DD
   startPage: number | string;
   endPage: number | string;
