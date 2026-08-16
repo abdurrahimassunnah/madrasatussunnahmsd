@@ -214,6 +214,17 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
     return specials.some(s => text.includes(s));
   };
 
+  const renderTextWithBreaks = (text: string) => {
+    if (!text) return null;
+    const parts = text.split(/<br\s*\/?>/i);
+    return parts.map((part, i) => (
+      <React.Fragment key={i}>
+        {part}
+        {i < parts.length - 1 && <br />}
+      </React.Fragment>
+    ));
+  };
+
   // Parsing the Markdown Table into structured objects
   const parseTableToDays = (markdown: string): RoutineDay[] => {
     const lines = markdown.split('\n');
@@ -1137,7 +1148,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                             />
                           ) : (
                             <p className="text-[16px] font-bold text-slate-700 bg-white/40 p-3 rounded-xl min-h-[60px] leading-relaxed relative pl-4 border-l-4 border-emerald-400">
-                              {activeDay.cw}
+                              {renderTextWithBreaks(activeDay.cw)}
                             </p>
                           )}
                         </div>
@@ -1166,7 +1177,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                             />
                           ) : (
                             <p className="text-[16px] font-bold text-slate-700 bg-white/40 p-3 rounded-xl min-h-[60px] leading-relaxed relative pl-4 border-l-4 border-amber-400">
-                              {activeDay.hw}
+                              {renderTextWithBreaks(activeDay.hw)}
                             </p>
                           )}
                         </div>
@@ -1372,7 +1383,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                                   rows={2}
                                 />
                               ) : (
-                                <p className="text-sm font-bold text-slate-700 leading-relaxed">{day.cw}</p>
+                                <p className="text-sm font-bold text-slate-700 leading-relaxed">{renderTextWithBreaks(day.cw)}</p>
                               )}
                             </div>
                           </div>
@@ -1397,7 +1408,7 @@ const PlanDisplay: React.FC<PlanDisplayProps> = ({ content, onReset, onRegenerat
                                   rows={2}
                                 />
                               ) : (
-                                <p className="text-sm font-bold text-slate-700 leading-relaxed">{day.hw}</p>
+                                <p className="text-sm font-bold text-slate-700 leading-relaxed">{renderTextWithBreaks(day.hw)}</p>
                               )}
                             </div>
                           </div>
